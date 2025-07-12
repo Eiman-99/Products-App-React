@@ -41,7 +41,7 @@ export default function CustomNavbar() {
           </Nav>
 
           <Nav>
-            <Nav.Link as={NavLink} to="/total">
+            <Nav.Link>
               Total{" "}
               {totalCounter > 0 && <Badge bg="secondary">{totalCounter}</Badge>}
             </Nav.Link>

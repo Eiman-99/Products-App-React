@@ -3,16 +3,19 @@ import Card from "react-bootstrap/Card";
 import { useContext, useState } from "react";
 import { CounterStore } from "../../context/counterContext";
 import { renderStars } from "../../utils/renderStars";
+import { CartContext } from "../../context/cartContext";
 
-function Product({ title, description, thumbnail, stock, rating }) {
+function Product({ title, description, thumbnail, stock, rating, price, id }) {
   const [counter, setCounter] = useState(0);
   const { setTotalCounter } = useContext(CounterStore);
+  const { addToCart } = useContext(CartContext);
 
   function handleClick(e) {
     e.preventDefault();
     e.stopPropagation();
     setCounter((prev) => prev + 1);
     setTotalCounter((prev) => prev + 1);
+    addToCart({ title, description, thumbnail, stock, rating, price, id });
   }
 
   function increment(e) {
