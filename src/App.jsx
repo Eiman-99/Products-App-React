@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/productDetails";
 import { CartProvider } from "./context/cartProvider";
+import { AuthProvider } from "./context/authContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [totalCounter, setTotalCounter] = useState(0);
@@ -20,18 +22,27 @@ function App() {
 
   return (
     <>
-      <CartProvider>
-        <CounterStore.Provider value={values}>
-          <CustomNavbar />
-          <Routes>
-            <Route path="/" element={<Products />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-          </Routes>
-        </CounterStore.Provider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <CounterStore.Provider value={values}>
+            <CustomNavbar />
+            <Routes>
+              <Route path="/" element={<Products />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </CounterStore.Provider>
+        </CartProvider>
+      </AuthProvider>
     </>
   );
 }

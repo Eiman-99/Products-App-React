@@ -4,6 +4,7 @@ import { axiosInterceptor } from "../data/products";
 import { renderStars } from "../utils/renderStars";
 import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
 import { CartContext } from "../context/cartContext";
+import Loader from "../utils/Loader";
 
 function ProductDetails() {
   const { addToCart, removeFromCart, isInCart } = useContext(CartContext);
@@ -16,12 +17,7 @@ function ProductDetails() {
     });
   }, [id]);
 
-  if (!product)
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="spinner-border text-primary" role="status" />
-      </div>
-    );
+  if (!product) return <Loader />;
 
   return (
     <div className="py-5">
