@@ -34,6 +34,7 @@ export default function CustomNavbar() {
             </Nav.Link>
             <Nav.Link
               as={NavLink}
+              to="/login"
               onClick={() => {
                 if (isLoggedIn) {
                   logout();

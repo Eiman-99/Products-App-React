@@ -24,7 +24,7 @@ function Login() {
         style={{
           width: "100%",
           maxWidth: "400px",
-          boxShadow: "0 0 15px rgba(0,0,0,0.2)",
+          boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
         }}
         className="p-4"
       >
