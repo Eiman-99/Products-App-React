@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Product from "../product/product";
 import { getProducts } from "../../data/products";
+import { Link } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -12,10 +13,14 @@ function Products() {
   }, []);
 
   return (
-    <div className="container d-flex flex-wrap gap-4 mt-4">
-      {products.map((product) => (
-        <Product key={product.id} {...product} />
-      ))}
+    <div className="py-5">
+      <div className="container d-flex flex-wrap gap-4 my-5">
+        {products.map((product) => (
+          <Link to={`/product/${product.id}`} key={product.id}>
+            <Product {...product} />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,46 +1,39 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useContext, useState } from "react";
-import { FaStar } from "react-icons/fa";
 import { CounterStore } from "../../context/counterContext";
+import { renderStars } from "../../utils/renderStars";
 
 function Product({ title, description, thumbnail, stock, rating }) {
   const [counter, setCounter] = useState(0);
   const { setTotalCounter } = useContext(CounterStore);
 
-  function handleClick() {
+  function handleClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
     setCounter((prev) => prev + 1);
     setTotalCounter((prev) => prev + 1);
   }
 
-  function increment() {
+  function increment(e) {
+    e.preventDefault();
+    e.stopPropagation();
     if (counter < stock) {
       setCounter((prev) => prev + 1);
       setTotalCounter((prev) => prev + 1);
     }
   }
-  function decrement() {
+  function decrement(e) {
+    e.preventDefault();
+    e.stopPropagation();
     if (counter > 0) {
       setCounter((prev) => prev - 1);
       setTotalCounter((prev) => prev - 1);
     }
   }
 
-  function renderStars() {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <FaStar
-          key={i}
-          className={i <= rating ? "text-warning" : "text-secondary"}
-        />
-      );
-    }
-    return stars;
-  }
-
   return (
-    <Card style={{ width: "15rem" }}>
+    <Card style={{ width: "15rem", height: "100%" }}>
       <Card.Img
         variant="top"
         src={thumbnail}
@@ -48,7 +41,7 @@ function Product({ title, description, thumbnail, stock, rating }) {
       />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <div>{renderStars()}</div>
+        <div>{renderStars(rating)}</div>
         <Card.Text>{description.slice(0, 50)}...</Card.Text>
         <p>stock: {stock}</p>
         <div className="d-flex justify-content-between">
